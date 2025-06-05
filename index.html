@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Watches - Timeless Elegance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS will be placed here */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.fade-out {
+            opacity: 0;
+        }
+
+        .loader .clock {
+            width: 100px;
+            height: 100px;
+            border: 5px solid #d4af37;
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 2s linear infinite;
+        }
+
+        .loader .clock::before {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 40px;
+            background: #333;
+            top: 50%;
+            left: 50%;
+            transform-origin: top;
+            transform: translate(-50%, -100%) rotate(0deg);
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(26, 26, 26, 0.95);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #d4af37;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: #d4af37;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            color: white;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #d4af37;
+            color: #1a1a1a;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #d4af37;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: #d4af37;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #d4af37;
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background: #d4af37;
+            color: #1a1a1a;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: #d4af37;
+            bottom: -10px;
+            left: 25%;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-img {
+            flex: 1;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeInLeft 1s ease;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            flex: 1;
+            animation: fadeInRight 1s ease;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .features {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .features .section-title h2 {
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #333;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: #d4af37;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-img {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #d4af37;
+            color: #1a1a1a;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info .price {
+            font-weight: 700;
+            color: #d4af37;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .product-info .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1rem;
+            margin-left: 0.5rem;
+        }
+
+        .product-info .btn {
+            width: 100%;
+            text-align: center;
+            padding: 0.6rem;
+            font-size: 0.9rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p, .contact-card a {
+            color: #555;
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .contact-card a:hover {
+            color: #d4af37;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #d4af37;
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #d4af37;
+        }
+
+        .footer-col p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #333;
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #d4af37;
+            color: #1a1a1a;
+            transform: translateY(-3px);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: #d4af37;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #d4af37;
+            color: #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #1a1a1a;
+            color: #d4af37;
+            transform: translateY(-5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background: #1a1a1a;
+            z-index: 1001;
+            transition: right 0.3s ease;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .close-menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu ul li a:hover {
+            color: #d4af37;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-img, .about-text {
+                flex: none;
+                width: 100%;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 0.7rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 1rem;
+                display: block;
+            }
+        }
+
+        /* Page Transitions */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Product Detail Page */
+        .product-detail {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .product-images {
+            flex: 1;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .main-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .thumbnail-images {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail.active {
+            border-color: #d4af37;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info-detail {
+            flex: 1;
+        }
+
+        .product-info-detail h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .price-detail {
+            font-size: 1.8rem;
+            color: #d4af37;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .old-price-detail {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.3rem;
+            margin-left: 0.8rem;
+        }
+
+        .product-info-detail p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-meta {
+            margin-bottom: 2rem;
+        }
+
+        .product-meta div {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-meta i {
+            color: #d4af37;
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .quantity-selector button {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-selector input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 0 0.5rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+            text-align: center;
+        }
+
+        @media (max-width: 992px) {
+            .product-detail {
+                flex-direction: column;
+            }
+            
+            .main-image {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader">
+        <div class="clock"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo" data-page="home">
+                    <i class="fas fa-clock"></i> Swift Watches
+                </a>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="about">About</a></li>
+                        <li><a href="#" data-page="shop">Shop</a></li>
+                        <li><a href="#" data-page="services">Services</a></li>
+                        <li><a href="#" data-page="contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <a href="#" class="logo" data-page="home">
+                <i class="fas fa-clock"></i> Swift Watches
+            </a>
+            <button class="close-menu-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul>
+            <li><a href="#" data-page="home">Home</a></li>
+            <li><a href="#" data-page="about">About</a></li>
+            <li><a href="#" data-page="shop">Shop</a></li>
+            <li><a href="#" data-page="services">Services</a></li>
+            <li><a href="#" data-page="contact">Contact</a></li>
+        </ul>
+    </div>
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Timeless Elegance on Your Wrist</h1>
+                        <p>Discover our exquisite collection of handcrafted watches that blend precision engineering with artistic design. Each timepiece tells a story of craftsmanship and heritage.</p>
+                        <a href="#" class="btn" data-page="shop">Shop Now</a>
+                        <a href="#" class="btn btn-outline" data-page="about">Learn More</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about-section">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Our Story</h2>
+                    </div>
+                    <div class="about-content">
+                        <div class="about-img">
+                            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="About Swift Watches">
+                        </div>
+                        <div class="about-text">
+                            <h3>Crafting Timepieces Since 2023</h3>
+                            <p>Founded by Anusha Thapa in the heart of Thimphu, Bhutan, Swift Watches was born from a passion for precision and a love for timeless design. Our journey began with a simple vision: to create watches that are not just timekeeping devices but wearable art.</p>
+                            <p>Each Swift watch is meticulously crafted by skilled artisans who pour their expertise and attention to detail into every component. We source only the finest materials from around the world to ensure durability, comfort, and elegance.</p>
+                            <p>Inspired by the relentless march of time and the beauty of Bhutan's landscapes, our designs reflect both modern sophistication and traditional craftsmanship.</p>
+                            <a href="#" class="btn" data-page="about">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Why Choose Swift Watches</h2>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-gem"></i>
+                            <h3>Premium Materials</h3>
+                            <p>We use only the highest quality materials including sapphire crystal, 316L stainless steel, and genuine leather for lasting durability.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-cogs"></i>
+                            <h3>Precision Movement</h3>
+                            <p>Our watches feature Swiss and Japanese automatic movements known for their accuracy and reliability.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-award"></i>
+                            <h3>2-Year Warranty</h3>
+                            <p>Every Swift watch comes with a comprehensive 2-year warranty against manufacturing defects.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products-section">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Our Collections</h2>
+                    </div>
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Classic Elegance Watch">
+                                <span class="product-badge">Bestseller</span>
+                            </div>
+                            <div class="product-info">
+                                <h3>Classic Elegance</h3>
+                                <span class="price">Nu. 15,000 <span class="old-price">Nu. 18,000</span></span>
+                                <a href="#" class="btn" data-page="product-detail">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Modern Chrono Watch">
+                            </div>
+                            <div class="product-info">
+                                <h3>Modern Chrono</h3>
+                                <span class="price">Nu. 22,000</span>
+                                <a href="#" class="btn" data-page="product-detail">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Heritage Automatic">
+                                <span class="product-badge">New</span>
+                            </div>
+                            <div class="product-info">
+                                <h3>Heritage Automatic</h3>
+                                <span class="price">Nu. 28,000 <span class="old-price">Nu. 32,000</span></span>
+                                <a href="#" class="btn" data-page="product-detail">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <a href="#" class="btn" data-page="shop">View All Collections</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services-section" class="services">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Our Services</h2>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <i class="fas fa-tools"></i>
+                            <h3>Watch Repair</h3>
+                            <p>Our expert technicians can handle everything from battery replacements to complete movement overhauls using genuine parts.</p>
+                            <a href="#" class="btn" data-page="services">Learn More</a>
+                        </div>
+                        <div class="service-card">
+                            <i class="fas fa-broom"></i>
+                            <h3>Professional Cleaning</h3>
+                            <p>Restore your watch's brilliance with our professional ultrasonic cleaning service that reaches every crevice.</p>
+                            <a href="#" class="btn" data-page="services">Learn More</a>
+                        </div>
+                        <div class="service-card">
+                            <i class="fas fa-gift"></i>
+                            <h3>Custom Engraving</h3>
+                            <p>Personalize your watch with our precision laser engraving service. Perfect for gifts and special occasions.</p>
+                            <a href="#" class="btn" data-page="services">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div class="page" id="about">
+            <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1518544866338-9f29a2ad4a5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); height: 60vh;">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>About Swift Watches</h1>
+                        <p>Discover the passion, craftsmanship, and vision behind our timepieces</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="about-content">
+                        <div class="about-img">
+                            <img src="C:\Users\user\Downloads\photo-2208267_640.jpeg" alt="Anusha Thapa, Founder">
+                        </div>
+                        <div class="about-text">
+                            <h3>Meet Anusha Thapa</h3>
+                            <p>Hello! I'm Anusha Thapa, the founder and creative force behind Swift Watches. My journey in horology began as a childhood fascination with my grandfather's pocket watch, which he brought back from his travels.</p>
+                            <p>After studying design in Thimphu and working with several luxury brands, I realized there was a need for timepieces that combined Swiss precision with Bhutanese aesthetics at accessible prices. In 2023, I decided to turn this vision into reality.</p>
+                            <p>Every Swift watch is designed with purpose and passion. We work closely with master watchmakers who have decades of experience to ensure each component meets our exacting standards.</p>
+                            <p>When I'm not designing new collections, you can find me hiking in the beautiful mountains of Bhutan, where I draw inspiration from nature's timeless beauty.</p>
+                            <div class="product-meta">
+                                <div>
+                                    <i class="fas fa-envelope"></i>
+                                    <span>TickTock123@gmail.com</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-phone"></i>
+                                    <span>17777777</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Thimphu, Bhutan</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Our Values</h2>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-handshake"></i>
+                            <h3>Integrity</h3>
+                            <p>We believe in complete transparency about our materials, processes, and pricing. What you see is what you get.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-leaf"></i>
+                            <h3>Sustainability</h3>
+                            <p>From responsibly sourced materials to eco-friendly packaging, we minimize our environmental impact.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-heart"></i>
+                            <h3>Customer Love</h3>
+                            <p>Your satisfaction is our priority. We stand behind every product with exceptional service.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Our Workshop</h2>
+                    </div>
+                    <div class="about-content">
+                        <div class="about-text">
+                            <p>Nestled in the heart of Thimphu, our workshop is where magic happens. Here, skilled artisans with decades of experience assemble each watch by hand, paying meticulous attention to every detail.</p>
+                            <p>We've created a space that blends traditional watchmaking techniques with modern technology. Our state-of-the-art equipment allows for precision that would be impossible to achieve by hand alone, while our craftsmen ensure each watch has that human touch.</p>
+                            <p>Quality control is rigorous at every stage. Each movement is tested for accuracy, each case inspected for imperfections, and each strap checked for comfort and durability before it leaves our workshop.</p>
+                            <p>We invite you to visit us and see the craftsmanship firsthand. There's nothing quite like watching a timepiece come to life.</p>
+                        </div>
+                        <div class="about-img">
+                            <img src="https://images.unsplash.com/photo-1452868195396-89c1af3b1b2e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Swift Watches Workshop">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Shop Page -->
+        <div class="page" id="shop">
+            <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1549972574-8e3e1ed6a347?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); height: 60vh;">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Our Collections</h1>
+                        <p>Explore our curated selection of timepieces for every style and occasion</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Classic Elegance Watch">
+                                <span class="product-badge">Bestseller</span>
+                            </div>
+                            <div class="product-info">
+                                <h3>Classic Elegance</h3>
+                                <span class="price">Nu. 15,000 <span class="old-price">Nu. 18,000</span></span>
+                                <a href="#" class="btn" data-page="product-detail">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Modern Chrono Watch">
+                            </div>
+                            <div class="product-info">
+                                <h3>Modern Chrono</h3>
+                                <span class="price">Nu. 22,000</span>
+                                <a href="#" class="btn" data-page="product-detail">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Heritage Automatic">
+                                <span class="product-badge">New</span>
+                            </div>
+                            <div class="product-info">
+                                <h3>Heritage Automatic</h3>
+                                <span class="price">Nu. 28,000 <span class="old-price">Nu. 32,000</span></span>
+                                <a href="#" class="btn" data-page="product-detail">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1551818255-e6e10975bc17?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Minimalist Silver">
+                            </div>
+                            <div class="product-info">
+                                <h3>Minimalist Silver</h3>
+                                <span class="price">Nu. 12,500</span>
+                                <a href="#" class="btn" data-page="product-detail">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1557531365-e8b22d93dbd0?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Diver's Professional">
+                                <span class="product-badge">Limited</span>
+                            </div>
+                            <div class="product-info">
+                                <h3>Diver's Professional</h3>
+                                <span class="price">Nu. 35,000</span>
+                                <a href="#" class="btn" data-page="product-detail">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img">
+                                <img src="https://images.unsplash.com/photo-1548169874-53e85f753f1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Rose Gold Classic">
+                            </div>
+                            <div class="product-info">
+                                <h3>Rose Gold Classic</h3>
+                                <span class="price">Nu. 24,000 <span class="old-price">Nu. 28,000</span></span>
+                                <a href="#" class="btn" data-page="product-detail">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Product Detail Page -->
+        <div class="page" id="product-detail">
+            <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1547996160-81dfa63595aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); height: 60vh;">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Product Details</h1>
+                        <p>Everything you need to know about your perfect timepiece</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="product-detail">
+                        <div class="product-images">
+                            <div class="main-image">
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Classic Elegance Watch" id="main-image">
+                            </div>
+                            <div class="thumbnail-images">
+                                <div class="thumbnail active" data-image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80">
+                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Classic Elegance Watch Front">
+                                </div>
+                                <div class="thumbnail" data-image="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80">
+                                    <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Classic Elegance Watch Side">
+                                </div>
+                                <div class="thumbnail" data-image="https://images.unsplash.com/photo-1539874754764-5a96559165b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80">
+                                    <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Classic Elegance Watch Back">
+                                </div>
+                                <div class="thumbnail" data-image="https://images.unsplash.com/photo-1557531365-e8b22d93dbd0?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80">
+                                    <img src="https://images.unsplash.com/photo-1557531365-e8b22d93dbd0?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Classic Elegance Watch Wrist">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-info-detail">
+                            <h1>Classic Elegance</h1>
+                            <div class="price-detail">Nu. 15,000 <span class="old-price-detail">Nu. 18,000</span></div>
+                            <p>The Classic Elegance collection embodies timeless sophistication. Featuring a stainless steel case, genuine leather strap, and sapphire crystal glass, this watch is built to last while maintaining its refined appearance.</p>
+                            <p>Powered by a precise Japanese automatic movement, the Classic Elegance doesn't just tell time—it makes a statement about your appreciation for craftsmanship and enduring style.</p>
+                            <div class="product-meta">
+                                <div>
+                                    <i class="fas fa-clock"></i>
+                                    <span>Movement: Japanese Automatic</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Water Resistance: 50 meters</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-box-open"></i>
+                                    <span>Includes: Presentation box, warranty card</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-truck"></i>
+                                    <span>Free shipping across Bhutan</span>
+                                </div>
+                            </div>
+                            <div class="quantity-selector">
+                                <button id="decrease-qty">-</button>
+                                <input type="number" id="quantity" value="1" min="1">
+                                <button id="increase-qty">+</button>
+                            </div>
+                            <div class="action-buttons">
+                                <a href="#" class="btn">Add to Cart</a>
+                                <a href="#" class="btn btn-outline">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Services Page -->
+        <div class="page" id="services">
+            <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); height: 60vh;">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Our Services</h1>
+                        <p>Beyond selling watches, we provide comprehensive care for your timepieces</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Watch Care Services</h2>
+                    </div>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <i class="fas fa-tools"></i>
+                            <h3>Professional Repairs</h3>
+                            <p>Our certified watchmakers can handle everything from simple battery replacements to complex movement repairs. We use only manufacturer-approved parts and tools.</p>
+                            <p><strong>Services include:</strong> Battery replacement, movement servicing, crystal replacement, crown/stem repair, water resistance testing</p>
+                            <p><strong>Turnaround time:</strong> 3-7 days depending on complexity</p>
+                        </div>
+                        <div class="service-card">
+                            <i class="fas fa-broom"></i>
+                            <h3>Deep Cleaning</h3>
+                            <p>Restore your watch's original luster with our professional cleaning service. We use ultrasonic technology to remove dirt from even the hardest-to-reach areas.</p>
+                            <p><strong>Process includes:</strong> Case and bracelet disassembly, ultrasonic cleaning, polishing (upon request), reassembly and lubrication</p>
+                            <p><strong>Turnaround time:</strong> 2-3 days</p>
+                        </div>
+                        <div class="service-card">
+                            <i class="fas fa-gift"></i>
+                            <h3>Custom Engraving</h3>
+                            <p>Make your watch truly unique with our precision engraving service. Perfect for gifts, anniversaries, or personal statements.</p>
+                            <p><strong>Options include:</strong> Monograms, dates, special messages, custom designs (consultation required)</p>
+                            <p><strong>Turnaround time:</strong> 1-2 days for standard engraving</p>
+                        </div>
+                        <div class="service-card">
+                            <i class="fas fa-history"></i>
+                            <h3>Vintage Restoration</h3>
+                            <p>Bring new life to your heirloom timepieces with our vintage watch restoration service. We handle each piece with the care and respect it deserves.</p>
+                            <p><strong>Services include:</strong> Movement overhaul, dial restoration, case refinishing, strap/bracelet restoration</p>
+                            <p><strong>Turnaround time:</strong> Varies based on condition (consultation required)</p>
+                        </div>
+                        <div class="service-card">
+                            <i class="fas fa-certificate"></i>
+                            <h3>Authentication</h3>
+                            <p>Not sure about your watch's authenticity? Our experts can verify the genuineness of your timepiece and provide a certificate of authentication.</p>
+                            <p><strong>Process includes:</strong> Visual inspection, movement examination, comparison with manufacturer specifications, documentation review</p>
+                            <p><strong>Turnaround time:</strong> 1-3 days</p>
+                        </div>
+                        <div class="service-card">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h3>Regular Maintenance</h3>
+                            <p>Preventative care is the best way to ensure your watch lasts for generations. Our maintenance plans keep your timepiece in optimal condition.</p>
+                            <p><strong>Includes:</strong> Movement lubrication, gasket replacement, water resistance testing, timing adjustment, general inspection</p>
+                            <p><strong>Recommended:</strong> Every 3-5 years depending on usage</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Why Choose Our Services</h2>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-user-tie"></i>
+                            <h3>Expert Technicians</h3>
+                            <p>Our watchmakers have decades of combined experience working with luxury brands and complicated movements.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Genuine Parts</h3>
+                            <p>We source components directly from manufacturers or use high-quality equivalents when originals aren't available.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-lock"></i>
+                            <h3>Secure Facility</h3>
+                            <p>Your watch is protected in our state-of-the-art workshop with 24/7 security and insurance coverage.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div class="page" id="contact">
+            <section class="hero" style="background-image: url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); height: 60vh;">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Get In Touch</h1>
+                        <p>We'd love to hear from you. Reach out with questions, feedback, or just to say hello!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Contact Us</h2>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3>Visit Us</h3>
+                            <p>Norzin Lam, Thimphu<br>Bhutan</p>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Email Us</h3>
+                            <a href="mailto:TickTock123@gmail.com">TickTock123@gmail.com</a>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fas fa-phone"></i>
+                            <h3>Call Us</h3>
+                            <a href="tel:17777777">17777777</a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" name="message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Visit Our Store</h2>
+                    </div>
+                    <div class="about-content">
+                        <div class="about-img">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14130.857353934944!2d89.6362605!3d27.4712375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e1941a778481a5%3A0x8a0e8a9e7a1a3b1!2sNorzin%20Lam%2C%20Thimphu!5e0!3m2!1sen!2sbt!4v1620000000000!5m2!1sen!2sbt" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        <div class="about-text">
+                            <h3>Store Hours</h3>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            <p>Saturday: 10:00 AM - 5:00 PM</p>
+                            <p>Sunday: Closed</p>
+                            <p>We're located in the heart of Thimphu on Norzin Lam, just opposite the clock tower. Look for our distinctive gold and black storefront.</p>
+                            <p>Parking is available in the nearby public parking lot, and we're easily accessible by public transportation.</p>
+                            <p>For special after-hours appointments, please contact us in advance.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Swift Watches</h3>
+                    <p>Crafting timeless timepieces inspired by the beauty of Bhutan and the precision of Swiss engineering.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/"><i class="https://www.facebook.com/"></i></a>
+                        <a href="https://www.instagram.com/"><i class="https://www.instagram.com/"></i></a>
+                        <a href="https://twitter-cl.vercel.app/login"><i class="https://twitter-cl.vercel.app/login"></i></a>
+                        <a href="https://www.pinterest.com/"><i class="https://www.pinterest.com/"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="about">About Us</a></li>
+                        <li><a href="#" data-page="shop">Shop</a></li>
+                        <li><a href="#" data-page="services">Services</a></li>
+                        <li><a href="#" data-page="contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Warranty Information</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to receive updates, access to exclusive deals, and watch care tips.</p>
+                    <form id="newsletterForm">
+                        <div class="form-group">
+                            <input type="email" placeholder="Your email address" required>
+                        </div>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Swift Watches. All Rights Reserved. | Designed by Anusha Thapa</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Loader
+        window.addEventListener('load', function() {
+            const loader = document.querySelector('.loader');
+            setTimeout(() => {
+                loader.classList.add('fade-out');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const closeMenuBtn = document.querySelector('.close-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const overlay = document.querySelector('.overlay');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Sticky Header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Back to Top Button
+        const backToTopBtn = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Page Navigation
+        const pageLinks = document.querySelectorAll('[data-page]');
+        const pages = document.querySelectorAll('.page');
+
+        pageLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                
+                // Hide all pages
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Show selected page
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close mobile menu if open
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Scroll to top
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Product Image Thumbnails
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.getElementById('main-image');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', function() {
+                // Remove active class from all thumbnails
+                thumbnails.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked thumbnail
+                this.classList.add('active');
+                
+                // Change main image
+                const newImageSrc = this.getAttribute('data-image');
+                mainImage.src = newImageSrc;
+            });
+        });
+
+        // Quantity Selector
+        const decreaseBtn = document.getElementById('decrease-qty');
+        const increaseBtn = document.getElementById('increase-qty');
+        const quantityInput = document.getElementById('quantity');
+
+        decreaseBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        increaseBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            let currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+        });
+
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        const newsletterForm = document.getElementById('newsletterForm');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+            this.reset();
+        });
+
+        // Animations on Scroll
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.about-img, .about-text, .feature-card, .product-card, .service-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state for animated elements
+        window.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.about-img, .about-text, .feature-card, .product-card, .service-card');
+            
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            // Trigger first check
+            animateOnScroll();
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
